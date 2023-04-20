@@ -1,9 +1,8 @@
 package com.example.postapi_demo.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.example.postapi_demo.Activities.SplashActivity.editor;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.postapi_demo.MODEL.LoginData;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.postapi_demo.Models.LoginData;
 import com.example.postapi_demo.R;
 import com.example.postapi_demo.Retro_Object_Class;
 
@@ -24,8 +25,7 @@ import retrofit2.Response;
 public class Login_Activity extends AppCompatActivity {
     EditText email,password;
     Button btnLogin,btnReg;
-    SharedPreferences preferences;
-    SharedPreferences.Editor editor;
+
     String str1,str2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,7 @@ public class Login_Activity extends AppCompatActivity {
         email=findViewById(R.id.loginEmail);
         password=findViewById(R.id.loginPass);
         btnReg=findViewById(R.id.btnReg);
-        preferences=getSharedPreferences("myPref",MODE_PRIVATE);
-        editor=preferences.edit();
+
         btnLogin=findViewById(R.id.btnLogin);
         email.addTextChangedListener(textWatcher);
         password.addTextChangedListener(textWatcher);
@@ -43,16 +42,19 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String user=preferences.getString("email","null");
-                System.out.println("user="+user);
-                if(user.equals(email))
-                {
-                    Toast.makeText(Login_Activity.this, "Already logged in", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                String email1=SplashActivity.sp.getString("email","null");
+                String name1=SplashActivity.sp.getString("name","null");
+                Log.d("email1", "Email from pref: "+email1);
+                Log.d("email1", "Password from pref: "+name1);
+
+//                if(email.getText().toString().equals(email1))
+//                {
+//                    Toast.makeText(Login_Activity.this, "Already logged in", Toast.LENGTH_LONG).show();
+//                }
+//                else
+//                {
                     loginApi();
-                }
+                //}
             }
         });
     }
@@ -77,7 +79,6 @@ public class Login_Activity extends AppCompatActivity {
     };
     void loginApi()
     {
-        Log.d("bbb", "API hitted.."+str1.toString());
         Retro_Object_Class.CallApi().userLogin(str1,str2).enqueue(new Callback<LoginData>() {
             @Override
             public void onResponse(Call<LoginData> call, Response<LoginData> response) {
@@ -87,10 +88,11 @@ public class Login_Activity extends AppCompatActivity {
                     if(response.body().getResult()==1)
                     {
                         Toast.makeText(Login_Activity.this, "User Logged in", Toast.LENGTH_SHORT).show();
-                        //editor.putString("name", response.body().getUserdata().getName());
+                        editor.putBoolean("Loginstatus",true);
+                        editor.putString("name", response.body().getUserdata().getName());
                         editor.putString("email", response.body().getUserdata().getEmail());
                         editor.commit();
-                        Intent intent = new Intent(Login_Activity.this,FirstActivity.class);
+                        Intent intent = new Intent(Login_Activity.this, HomePage_Activity.class);
                         startActivity(intent);
                     }
                     else if(response.body().getResult()==2)

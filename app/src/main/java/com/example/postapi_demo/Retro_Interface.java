@@ -1,7 +1,7 @@
 package com.example.postapi_demo;
 
-import com.example.postapi_demo.MODEL.LoginData;
-import com.example.postapi_demo.MODEL.RegdData;
+import com.example.postapi_demo.Models.LoginData;
+import com.example.postapi_demo.Models.RegdData;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

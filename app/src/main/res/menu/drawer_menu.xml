@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/addProduct"
+        android:title="Add Product"
+        android:icon="@drawable/baseline_add_box_24"/>
+    <item android:id="@+id/viewProduct"
+        android:title="View Product"
+        android:icon="@drawable/baseline_preview_24"/>
+    <item android:id="@+id/showAll"
+        android:title="Show all Products"
+        android:icon="@drawable/baseline_checklist_24"/>
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        android:icon="@drawable/baseline_logout_24"/>
+</menu>

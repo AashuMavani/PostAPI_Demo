@@ -14,7 +14,7 @@
         android:theme="@style/Theme.PostAPI_Demo"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.Login_Activity"
+            android:name=".Activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,17 +23,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.FirstActivity"
+            android:name=".Activities.Login_Activity"
             android:exported="true">
+
         </activity>
+        <activity
+            android:name=".Activities.HomePage_Activity"
+            android:exported="true"></activity>
         <activity
             android:name=".Activities.Register_Activity"
             android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 

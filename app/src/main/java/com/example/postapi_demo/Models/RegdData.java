@@ -1,4 +1,4 @@
-package com.example.postapi_demo.MODEL;
+package com.example.postapi_demo.Models;
 
 
 

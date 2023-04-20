@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.postapi_demo.MODEL.RegdData;
+import com.example.postapi_demo.Models.RegdData;
 import com.example.postapi_demo.R;
 import com.example.postapi_demo.Retro_Object_Class;
 
