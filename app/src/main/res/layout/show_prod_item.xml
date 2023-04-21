@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="10dp"
+    android:textSize="20sp"
+    android:text="Pro_Name"
+    android:id="@+id/txt_proName"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:text="Pro_Price"
+        android:id="@+id/txt_proPrice"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:text="Pro_Des."
+        android:id="@+id/txt_proDes"/>
+    <ImageView
+        android:layout_width="200dp"
+        android:id="@+id/show_pro_item_proImage"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:text="All_Product Fragment"
+        android:textSize="30dp"
+        android:autofillHints="fetch image from gallery"
+        android:background="@color/purple_200"
+        android:tooltipText="add image"
+        android:src="@drawable/baseline_image_24"
+        android:layout_margin="20dp"/>
+
+</LinearLayout>
