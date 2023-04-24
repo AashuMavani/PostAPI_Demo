@@ -29,10 +29,22 @@ public interface Retro_Interface {
             @Field("pprize") String proPrice,
             @Field("pdes") String proDes,
             @Field("productimage") String proImage);
+
     @FormUrlEncoded
     @POST("viewProduct.php")
     Call<MyviewProducts> viewProducttt(@Field("userid") String userid);
+
     @FormUrlEncoded
     @POST("deleteproduct.php")
     Call<DeleteData> deleteProducttt(@Field("id") String userid);
+
+    @FormUrlEncoded
+    @POST("updateproduct.php")
+        //Response is same for both update and delete, hence pojo is same for both
+    Call<DeleteData> updateProduct(@Field("id") String id,
+                                   @Field("name")String name,
+                                   @Field("price") String price,
+                                   @Field("description")String description,
+                                   @Field("imagedata")String imagedata,
+                                   @Field("imagename")String imagename);
 }

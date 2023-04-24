@@ -2,6 +2,7 @@ package com.example.postapi_demo.Activities.Fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,6 +22,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.postapi_demo.Activities.SplashActivity;
+import com.example.postapi_demo.Models.DeleteData;
 import com.example.postapi_demo.Models.ProductAdddd;
 import com.example.postapi_demo.R;
 import com.example.postapi_demo.Retro_Object_Class;
@@ -38,7 +40,10 @@ public class Fragment_Add_Product extends Fragment
     ImageView imageView;
     EditText proName,proPrice,proDes;
     Button button;
+    String id,name,price,des,imageName;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint("WrongThread")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +56,36 @@ public class Fragment_Add_Product extends Fragment
         proPrice = view.findViewById(R.id.proPrice);
         proDes = view.findViewById(R.id.proDes);
         button = view.findViewById(R.id.btn_addpProduct);
+        if(getActivity().getIntent().getExtras()!=null)
+        {
+            id=getActivity().getIntent().getStringExtra("id");
+            name=getActivity().getIntent().getStringExtra("name");
+            price=getActivity().getIntent().getStringExtra("price");
+            des=getActivity().getIntent().getStringExtra("des");
+            imageName=getActivity().getIntent().getStringExtra("imageName");
+
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            byte[] imageInByte = baos.toByteArray();
+            String imagedata = Base64.getEncoder().encodeToString(imageInByte);
+
+
+
+
+
+            Retro_Object_Class.CallApi().updateProduct(id,name,price,des,imageName,imagedata).enqueue(new Callback<DeleteData>() {
+                @Override
+                public void onResponse(Call<DeleteData> call, Response<DeleteData> response) {
+                    Log.d("LLL", "onResponse: "+response.body());
+                }
+
+                @Override
+                public void onFailure(Call<DeleteData> call, Throwable t) {
+
+                }
+            });
+        }
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +125,6 @@ public class Fragment_Add_Product extends Fragment
                                 }
                                 Log.d("aaa", "onResponse: " + response.body());
                             }
-
                             @Override
                             public void onFailure(Call<ProductAdddd> call, Throwable t) {
                                 Log.d("error", "onResponse: " + t.getLocalizedMessage());
@@ -105,13 +139,10 @@ public class Fragment_Add_Product extends Fragment
         });
         return view;
     }
-
     @Override
     public void onStart() {
         super.onStart();
-
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
