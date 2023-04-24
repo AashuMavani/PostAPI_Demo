@@ -35,11 +35,8 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
-
                 if(Islogin)
                 {
-
                     startActivity(new Intent(SplashActivity.this,HomePage_Activity.class));
                     finish();
                 }
@@ -47,8 +44,6 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(SplashActivity.this,Login_Activity.class));
                     finish();
                 }
-
-
             }
         },3000);
 

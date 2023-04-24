@@ -1,43 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginTop="10dp"
-    android:textSize="20sp"
-    android:text="Pro_Name"
-    android:id="@+id/txt_proName"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:text="Pro_Price"
-        android:id="@+id/txt_proPrice"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:text="Pro_Des."
-        android:id="@+id/txt_proDes"/>
-    <ImageView
-        android:layout_width="200dp"
-        android:id="@+id/show_pro_item_proImage"
-        android:layout_height="200dp"
-        android:gravity="center"
-        android:text="All_Product Fragment"
-        android:textSize="30dp"
-        android:autofillHints="fetch image from gallery"
-        android:background="@color/purple_200"
-        android:tooltipText="add image"
-        android:src="@drawable/baseline_image_24"
-        android:layout_margin="20dp"/>
+    android:layout_height="wrap_content">
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="274dp"
+        android:layout_height="151dp"
+        android:orientation="vertical"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/txt_proName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:text="Pro_Name"
+            android:textSize="20sp"
+            android:gravity="left|center"
+            android:paddingLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/txt_proPrice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:gravity="left|center"
+            android:paddingLeft="10dp"
+            android:layout_weight="1"
+            android:text="Pro_Price"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_proDes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:text="Pro_Des."
+            android:textSize="20sp"
+            android:gravity="left|center"
+            android:paddingLeft="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="115dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="279dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/show_pro_item_proImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:autofillHints="fetch image from gallery"
+            android:background="@color/purple_200"
+            android:gravity="center"
+            android:src="@drawable/baseline_image_24"
+            android:text="All_Product Fragment"
+            android:textSize="30dp"
+            android:tooltipText="add image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.125" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

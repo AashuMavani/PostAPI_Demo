@@ -16,8 +16,8 @@ import com.example.postapi_demo.Models.MyviewProducts;
 import com.example.postapi_demo.Models.Productdatum;
 import com.example.postapi_demo.R;
 import com.example.postapi_demo.Retro_Object_Class;
+import com.google.android.material.divider.MaterialDividerItemDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,6 +53,9 @@ public class Fragment_Show_Product extends Fragment {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(layoutManager);
+                MaterialDividerItemDecoration mDividerItemDecoration = new MaterialDividerItemDecoration(recyclerView.getContext(),
+                        layoutManager.getOrientation());
+                recyclerView.addItemDecoration(mDividerItemDecoration);
                 recyclerView.setAdapter(myAdapter);
             }
 

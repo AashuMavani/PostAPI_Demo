@@ -10,17 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+
 import com.example.postapi_demo.Models.Productdatum;
 import com.example.postapi_demo.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder>
 {
     Context context;
-    List<Productdatum> productdataList;
+    List<Productdatum> productdataList = new ArrayList<>();
     public MyAdapter(Context context, List<Productdatum> productdataList) {
         this.context=context;
         this.productdataList=productdataList;
@@ -42,19 +43,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder>
         holder.p_Des.setText(""+productdataList.get(position).getProDes());
         String img="https://amiparaandroid.000webhostapp.com/Myapp/"+productdataList.get(position).getProImage();
 //        Glide.with(context).load(img).into(holder.imageView);
-
-
-
         Picasso.get()
                 .load(img)
                 .placeholder(R.drawable.jmkjkfg)
                 .into(holder.imageView);
-
     }
 
     @Override
     public int getItemCount() {
-
         return productdataList.size();
     }
 

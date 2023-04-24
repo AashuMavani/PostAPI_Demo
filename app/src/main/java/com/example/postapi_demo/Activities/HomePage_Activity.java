@@ -40,28 +40,32 @@ public class HomePage_Activity extends AppCompatActivity
         appBarLayout=findViewById(R.id.appBar);
         toolbar=findViewById(R.id.toolBar);
         navigationView=findViewById(R.id.nav_View);
+        drawer_img=findViewById(R.id.drawer_img);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle;
         toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.Open_Drawer,R.string.Close_Drawer);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        //drawer_img.setImageResource();
         View view = navigationView.getHeaderView(0);
         drawer_txt_name=view.findViewById(R.id.drawer_txt_name);
         drawer_txt_email=view.findViewById(R.id.drawer_txt_email);
         drawer_txt_name.setText(""+SplashActivity.sp.getString("name",null));
         drawer_txt_email.setText(""+SplashActivity.sp.getString("email",null));
+        addFragment(new Fragment_Show_Product());
+        //addFragment(new Fragment_Add_Product());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.addProduct)
                 {
-                    addFragment(new Fragment_Add_Product());
+                    replaceFragment(new Fragment_Add_Product());
                     drawerLayout.closeDrawer(Gravity.LEFT);
                 } else if (item.getItemId()==R.id.viewProduct) {
-                    addFragment(new Fragment_Show_Product());
+                    replaceFragment(new Fragment_Show_Product());
                     drawerLayout.closeDrawer(Gravity.LEFT);
                 } else if (item.getItemId()==R.id.showAll) {
-                    addFragment(new Fragment_All_Product());
+                    replaceFragment(new Fragment_All_Product());
                     drawerLayout.closeDrawer(Gravity.LEFT);
                 } else if (item.getItemId()==R.id.logout) {
                     Intent intent=new Intent(HomePage_Activity.this,Login_Activity.class);
@@ -80,5 +84,33 @@ public class HomePage_Activity extends AppCompatActivity
         FragmentTransaction transaction= fm.beginTransaction();
         transaction.add(R.id.frame, fragment);
         transaction.commit();
+
+//        fm.removeFragmentOnAttachListener(new FragmentOnAttachListener() {
+//            @Override
+//            public void onAttachFragment(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment) {
+//                transaction.add(R.id.frame, fragment);
+//                transaction.commit();
+//            }
+//        });
+
     }
+    private void replaceFragment(Fragment fragment)
+    {
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction transaction= fm.beginTransaction();
+        //transaction.add(R.id.frame, fragment);
+        transaction.replace(R.id.frame,fragment);
+
+        transaction.commit();
+
+//        fm.removeFragmentOnAttachListener(new FragmentOnAttachListener() {
+//            @Override
+//            public void onAttachFragment(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment) {
+//                transaction.add(R.id.frame, fragment);
+//                transaction.commit();
+//            }
+//        });
+
+    }
+
 }
