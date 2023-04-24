@@ -1,5 +1,6 @@
 package com.example.postapi_demo;
 
+import com.example.postapi_demo.Models.DeleteData;
 import com.example.postapi_demo.Models.LoginData;
 import com.example.postapi_demo.Models.MyviewProducts;
 import com.example.postapi_demo.Models.ProductAdddd;
@@ -31,4 +32,7 @@ public interface Retro_Interface {
     @FormUrlEncoded
     @POST("viewProduct.php")
     Call<MyviewProducts> viewProducttt(@Field("userid") String userid);
+    @FormUrlEncoded
+    @POST("deleteproduct.php")
+    Call<DeleteData> deleteProducttt(@Field("id") String userid);
 }

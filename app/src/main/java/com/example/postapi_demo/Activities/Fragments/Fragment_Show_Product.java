@@ -45,10 +45,7 @@ public class Fragment_Show_Product extends Fragment {
             public void onResponse(Call<MyviewProducts> call, Response<MyviewProducts> response) {
                 //Log.d("mmm", "onResponse: "+response.body().getProductdata());
                 List<Productdatum> productdataList = response.body().getProductdata();
-                for (int i=0;i<productdataList.size();i++)
-                {
-                    Log.d("mmm", "onResponse: "+productdataList.get(i));
-                }
+
                 MyAdapter myAdapter=new MyAdapter(getContext(),productdataList);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -56,7 +53,9 @@ public class Fragment_Show_Product extends Fragment {
                 MaterialDividerItemDecoration mDividerItemDecoration = new MaterialDividerItemDecoration(recyclerView.getContext(),
                         layoutManager.getOrientation());
                 recyclerView.addItemDecoration(mDividerItemDecoration);
+                //myAdapter.notifyDataSetChanged();
                 recyclerView.setAdapter(myAdapter);
+
             }
 
             @Override
