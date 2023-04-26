@@ -15,6 +15,11 @@
         android:theme="@style/Theme.PostAPI_Demo"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.PaymentActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".Activities.SplashActivity"
             android:exported="true">
             <intent-filter>

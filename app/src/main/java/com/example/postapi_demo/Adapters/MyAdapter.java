@@ -1,8 +1,6 @@
 package com.example.postapi_demo.Adapters;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,9 +13,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.postapi_demo.Activities.Fragments.Fragment_Add_Product;
+import com.example.postapi_demo.Activities.Fragments.Fragment_Interface;
 import com.example.postapi_demo.Models.DeleteData;
 import com.example.postapi_demo.Models.Productdatum;
 import com.example.postapi_demo.R;
@@ -32,12 +31,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
-    Context context;
+    FragmentActivity context;
     List<Productdatum> productdataList = new ArrayList<>();
-
-    public MyAdapter(Context context, List<Productdatum> productdataList) {
+    Fragment_Interface fragment_interface;
+    public MyAdapter(FragmentActivity context, List<Productdatum> productdataList, Fragment_Interface fragment_interface) {
         this.context = context;
         this.productdataList = productdataList;
+        this.fragment_interface=fragment_interface;
+    }
+
+    public MyAdapter() {
+
     }
 
     @NonNull
@@ -93,8 +97,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
                                     {
                                         Toast.makeText(context, "Something went wrong..", Toast.LENGTH_SHORT).show();
                                     }
-
-                                    //productdataList.remove(holder.getAdapterPosition());
                                 }
 
                                 @Override
@@ -106,13 +108,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
                             });
                         }
                         if (item.getItemId() == R.id.updateProducr){
-                            Intent intent = new Intent(context, Fragment_Add_Product.class);
-                            intent.putExtra("id",productdataList.get(position).getId());
-                            intent.putExtra("name",productdataList.get(position).getProName());
-                            intent.putExtra("price",productdataList.get(position).getProPrice());
-                            intent.putExtra("des",productdataList.get(position).getProDes());
-                            intent.putExtra("imageData",productdataList.get(position).getProImage());
-                            context.startActivity(intent);
+                            fragment_interface.onFragmentCall(productdataList.get(position).getId(),productdataList.get(position).getProName(),productdataList.get(position).getProPrice(),productdataList.get(position).getProDes(),productdataList.get(position).getProImage());
                         }
                         return false;
                     }

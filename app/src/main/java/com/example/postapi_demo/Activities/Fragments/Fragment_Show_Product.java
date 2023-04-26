@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,17 +47,30 @@ public class Fragment_Show_Product extends Fragment {
         Retro_Object_Class.CallApi().viewProducttt(SplashActivity.sp.getString("userid", "")).enqueue(new Callback<MyviewProducts>() {
             @Override
             public void onResponse(Call<MyviewProducts> call, Response<MyviewProducts> response) {
-                //Log.d("mmm", "onResponse: "+response.body().getProductdata());
-//                List<Productdatum> productdataList = new ArrayList<>();
-
-
-                Log.e("=======", "onResponse: " + response.body());
-
+                Log.e("aaa", "onResponse: " + response.body());
 
                 if (response.body().getConnection() == 1 && response.body().getResult() == 1) {
                     productdataList.addAll(response.body().getProductdata());
-                    Log.e("=======", "onResponse: " + response.body().toString().length());
-                    MyAdapter myAdapter = new MyAdapter(getContext(), productdataList);
+                    Log.e("aaa", "onResponse: " + response.body().toString().length());
+                    MyAdapter myAdapter = new MyAdapter(Fragment_Show_Product.this.getActivity(), productdataList, new Fragment_Interface() {
+                        @Override
+                        public void onFragmentCall(String id, String proName, String proPrice, String proDes, String proImage) {
+
+                            Fragment_Add_Product fragment = new Fragment_Add_Product();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", id);
+                            bundle.putString("name", proName);
+                            bundle.putString("price", proPrice);
+                            bundle.putString("des", proDes);
+                            bundle.putString("proImage", proImage);
+
+                            fragment.setArguments(bundle);
+                            FragmentManager fm = getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction = fm.beginTransaction();
+                            transaction.replace(R.id.frame, fragment);
+                            transaction.commit();
+                        }
+                    });
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                     recyclerView.setLayoutManager(layoutManager);
@@ -64,12 +79,9 @@ public class Fragment_Show_Product extends Fragment {
                     recyclerView.addItemDecoration(mDividerItemDecoration);
                     //myAdapter.notifyDataSetChanged();
                     recyclerView.setAdapter(myAdapter);
-                }
-                else if (response.body().getResult()==0)
-                {
+                } else if (response.body().getResult() == 0) {
                     Toast.makeText(getContext(), "No more items available", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
 

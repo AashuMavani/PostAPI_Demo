@@ -5,8 +5,6 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="@android:color/transparent">
-
-
     <EditText
         android:id="@+id/proName"
         android:layout_width="match_parent"
@@ -46,10 +44,22 @@
           android:tooltipText="add image"
           android:src="@drawable/baseline_image_24"/>
     </LinearLayout>
-    <Button
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:text="Add Product"
-        android:id="@+id/btn_addpProduct"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
 
+        <Button
+            android:id="@+id/btn_addProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Product"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_updtProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Product"
+            android:visibility="gone" />
+    </RelativeLayout>
 </LinearLayout>

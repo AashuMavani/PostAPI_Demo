@@ -24,6 +24,10 @@ import com.example.postapi_demo.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class HomePage_Activity extends AppCompatActivity
 {
     DrawerLayout drawerLayout;
@@ -32,6 +36,8 @@ public class HomePage_Activity extends AppCompatActivity
     NavigationView navigationView;
     TextView drawer_txt_name,drawer_txt_email;
     ImageView drawer_img;
+    ArrayList<String> listImages=new ArrayList<>();
+    ArrayList<String> arrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +58,16 @@ public class HomePage_Activity extends AppCompatActivity
         drawer_txt_email=view.findViewById(R.id.drawer_txt_email);
         drawer_txt_name.setText(""+SplashActivity.sp.getString("name",null));
         drawer_txt_email.setText(""+SplashActivity.sp.getString("email",null));
+        String name=drawer_txt_name.getText().toString();
+        String[] images = new String[0];
+        try {
+            images = getAssets().list("");
+            listImages = new ArrayList<String>(Arrays.asList(images));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("List of images="+listImages);
+
         addFragment(new Fragment_Show_Product());
         //addFragment(new Fragment_Add_Product());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -72,27 +88,16 @@ public class HomePage_Activity extends AppCompatActivity
                     startActivity(intent);
                     finish();
                 }
-
                 return true;
             }
         });
     }
-
     private void addFragment(Fragment fragment)
     {
         FragmentManager fm=getSupportFragmentManager();
         FragmentTransaction transaction= fm.beginTransaction();
         transaction.add(R.id.frame, fragment);
         transaction.commit();
-
-//        fm.removeFragmentOnAttachListener(new FragmentOnAttachListener() {
-//            @Override
-//            public void onAttachFragment(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment) {
-//                transaction.add(R.id.frame, fragment);
-//                transaction.commit();
-//            }
-//        });
-
     }
     private void replaceFragment(Fragment fragment)
     {
@@ -100,17 +105,6 @@ public class HomePage_Activity extends AppCompatActivity
         FragmentTransaction transaction= fm.beginTransaction();
         //transaction.add(R.id.frame, fragment);
         transaction.replace(R.id.frame,fragment);
-
         transaction.commit();
-
-//        fm.removeFragmentOnAttachListener(new FragmentOnAttachListener() {
-//            @Override
-//            public void onAttachFragment(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment) {
-//                transaction.add(R.id.frame, fragment);
-//                transaction.commit();
-//            }
-//        });
-
     }
-
 }
