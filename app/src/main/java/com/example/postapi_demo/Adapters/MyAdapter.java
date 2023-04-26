@@ -1,8 +1,6 @@
 package com.example.postapi_demo.Adapters;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,9 +13,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.postapi_demo.Activities.Fragments.Fragment_Add_Product;
+import com.example.postapi_demo.Activities.Fragments.Fragment_Interface;
 import com.example.postapi_demo.Models.DeleteData;
 import com.example.postapi_demo.Models.Productdatum;
 import com.example.postapi_demo.R;
@@ -32,12 +31,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
-    Context context;
+    FragmentActivity context;
     List<Productdatum> productdataList = new ArrayList<>();
+    Fragment_Interface fragmentInterface;
 
-    public MyAdapter(Context context, List<Productdatum> productdataList) {
+    public MyAdapter(FragmentActivity context, List<Productdatum> productdataList, Fragment_Interface fragmentInterface) {
         this.context = context;
         this.productdataList = productdataList;
+        this.fragmentInterface = fragmentInterface;
     }
 
     @NonNull
@@ -68,29 +69,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.deleteProduct)
-                        {
+                        if (item.getItemId() == R.id.deleteProduct) {
                             Retro_Object_Class.CallApi().deleteProducttt(productdataList.get(holder.getAdapterPosition()).getId()).enqueue(new Callback<DeleteData>() {
                                 @Override
                                 public void onResponse(Call<DeleteData> call, Response<DeleteData> response) {
                                     Log.d("TAG===", "onResponse: " + productdataList.get(holder.getAdapterPosition()).getId());
                                     Log.d("delete", "onResponse: " + response.body().getResult());
-                                    if (response.body().getConnection() == 1 && response.body().getResult() == 1)
-                                    {
-                                        Toast.makeText(context, "Product-"+(position+1)+" no more available..", Toast.LENGTH_LONG).show();
+                                    if (response.body().getConnection() == 1 && response.body().getResult() == 1) {
+                                        Toast.makeText(context, "Product-" + (position + 1) + " no more available..", Toast.LENGTH_LONG).show();
                                         productdataList.remove(position);
                                         notifyDataSetChanged();
-                                        if(productdataList.isEmpty())
-                                        {
+                                        if (productdataList.isEmpty()) {
                                             Toast.makeText(context, "No more products available..", Toast.LENGTH_LONG).show();
                                         }
-                                    }
-                                    else if (response.body().getResult() == 0)
-                                    {
+                                    } else if (response.body().getResult() == 0) {
                                         Toast.makeText(context, "No more products available..", Toast.LENGTH_LONG).show();
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Toast.makeText(context, "Something went wrong..", Toast.LENGTH_SHORT).show();
                                     }
 
@@ -105,14 +99,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
                                 }
                             });
                         }
-                        if (item.getItemId() == R.id.updateProducr){
-                            Intent intent = new Intent(context, Fragment_Add_Product.class);
-                            intent.putExtra("id",productdataList.get(position).getId());
-                            intent.putExtra("name",productdataList.get(position).getProName());
-                            intent.putExtra("price",productdataList.get(position).getProPrice());
-                            intent.putExtra("des",productdataList.get(position).getProDes());
-                            intent.putExtra("imageData",productdataList.get(position).getProImage());
-                            context.startActivity(intent);
+                        if (item.getItemId() == R.id.updateProducr) {
+
+                            fragmentInterface.onFragmentCall(productdataList.get(position).getId(),productdataList.get(position).getProName(),productdataList.get(position).getProPrice(),productdataList.get(position).getProDes(),productdataList.get(position).getProImage());
+
+//                            Fragment_Add_Product fragmentB = new Fragment_Add_Product();
+//                            Bundle bundle = new Bundle();
+//                            bundle.putString("NAME", productdataList.get(position).getProName());
+//                            fragmentB.setArguments(bundle);
+//
+//                            FragmentManager fm=  context.getSupportFragmentManager();
+//                            FragmentTransaction transaction= fm.beginTransaction();
+//                            transaction.replace(R.id.frame, fragmentB);
+//                            transaction.commit();
+
+
+//                            Intent intent = new Intent(context, Fragment_Add_Product.class);
+//                            intent.putExtra("id",productdataList.get(position).getId());
+//                            intent.putExtra("name",productdataList.get(position).getProName());
+//                            intent.putExtra("price",productdataList.get(position).getProPrice());
+//                            intent.putExtra("des",productdataList.get(position).getProDes());
+//                            intent.putExtra("imageData",productdataList.get(position).getProImage());
+//                            context.startActivity(intent);
                         }
                         return false;
                     }
@@ -128,6 +136,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
 
         return productdataList.size();
     }
+
 
     public class User_Holder extends RecyclerView.ViewHolder {
         TextView p_Name, p_Price, p_Des;

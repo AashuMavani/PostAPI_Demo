@@ -22,10 +22,10 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.postapi_demo.Activities.SplashActivity;
-import com.example.postapi_demo.Models.DeleteData;
 import com.example.postapi_demo.Models.ProductAdddd;
 import com.example.postapi_demo.R;
 import com.example.postapi_demo.Retro_Object_Class;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
@@ -56,35 +56,49 @@ public class Fragment_Add_Product extends Fragment
         proPrice = view.findViewById(R.id.proPrice);
         proDes = view.findViewById(R.id.proDes);
         button = view.findViewById(R.id.btn_addpProduct);
-        if(getActivity().getIntent().getExtras()!=null)
+        if(getArguments()!=null)
         {
-            id=getActivity().getIntent().getStringExtra("id");
-            name=getActivity().getIntent().getStringExtra("name");
-            price=getActivity().getIntent().getStringExtra("price");
-            des=getActivity().getIntent().getStringExtra("des");
-            imageName=getActivity().getIntent().getStringExtra("imageName");
+            id=getArguments().getString("id");
+            name=getArguments().getString("name");
+            price=getArguments().getString("price");
+            des=getArguments().getString("des");
+            imageName=getArguments().getString("proImage");
 
-            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-            byte[] imageInByte = baos.toByteArray();
-            String imagedata = Base64.getEncoder().encodeToString(imageInByte);
+//            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+//            byte[] imageInByte = baos.toByteArray();
+//            String imagedata = Base64.getEncoder().encodeToString(imageInByte);
 
+            Log.d("ggg", "onCreateView: id="+id);
+            Log.d("ggg", "onCreateView: name="+name);
+            Log.d("ggg", "onCreateView: price="+price);
+            Log.d("ggg", "onCreateView: des="+des);
+            Log.d("ggg", "onCreateView: image="+imageName);
 
+            proName.setText(""+name);
+            proPrice.setText(""+price);
+            proDes.setText(""+des);
+            String img = "https://amiparaandroid.000webhostapp.com/Myapp/"+imageName;
+//        Glide.with(context).load(img).into(holder.imageView);
+            Picasso.get()
+                    .load(img)
+                    .placeholder(R.drawable.baseline_change_circle_24)
+                    .into(imageView);
+            System.out.println("ImgName="+img);
+            //imageView.setImageURI(Uri.parse("https://amiparaandroid.000webhostapp.com/Myapp/"+imageName));
 
-
-
-            Retro_Object_Class.CallApi().updateProduct(id,name,price,des,imageName,imagedata).enqueue(new Callback<DeleteData>() {
-                @Override
-                public void onResponse(Call<DeleteData> call, Response<DeleteData> response) {
-                    Log.d("LLL", "onResponse: "+response.body());
-                }
-
-                @Override
-                public void onFailure(Call<DeleteData> call, Throwable t) {
-
-                }
-            });
+//            Retro_Object_Class.CallApi().updateProduct(id,name,price,des,imageName,imagedata).enqueue(new Callback<DeleteData>() {
+//                @Override
+//                public void onResponse(Call<DeleteData> call, Response<DeleteData> response) {
+//                    Log.d("LLL", "onResponse: "+response.body());
+//                }
+//
+//                @Override
+//                public void onFailure(Call<DeleteData> call, Throwable t) {
+//
+//                }
+//            });
         }
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,4 +170,6 @@ public class Fragment_Add_Product extends Fragment
             }
         }
     }
+
+
 }
