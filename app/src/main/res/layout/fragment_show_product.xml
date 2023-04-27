@@ -3,15 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent"
     android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
-
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:text="Add Product"-->
-<!--        android:id="@+id/btn_addpProduct"-->
-<!--        android:layout_height="wrap_content"/>-->
+<ProgressBar
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/progressBar"
+    android:layout_gravity="center"
+    android:layout_margin="20dp"
+    android:max="100"
+    />
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/nothing"
+        android:visibility="gone"
+        android:id="@+id/lottyAnimation"/>
    <androidx.recyclerview.widget.RecyclerView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"

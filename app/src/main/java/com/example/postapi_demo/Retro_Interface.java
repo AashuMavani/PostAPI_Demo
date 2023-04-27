@@ -9,6 +9,7 @@ import com.example.postapi_demo.Models.RegdData;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface Retro_Interface {
@@ -47,4 +48,6 @@ public interface Retro_Interface {
                                    @Field("description")String description,
                                    @Field("imagedata")String imagedata,
                                    @Field("imagename")String imagename);
+    @GET("showAllProduct.php")
+    Call<MyviewProducts> showAllProducts();
 }

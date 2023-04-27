@@ -15,17 +15,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.postapi_demo.Activities.SplashActivity;
+import com.example.postapi_demo.Adapters.MyAdapter;
+import com.example.postapi_demo.Models.MyviewProducts;
 import com.example.postapi_demo.Models.ProductAdddd;
+import com.example.postapi_demo.Models.Productdatum;
 import com.example.postapi_demo.R;
 import com.example.postapi_demo.Retro_Object_Class;
+import com.google.android.material.divider.MaterialDividerItemDecoration;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Base64;
 
 import retrofit2.Call;
@@ -36,7 +47,7 @@ public class Fragment_All_Product extends Fragment {
 
     ImageView imageView;
     EditText name;
-
+    ArrayList<Productdatum> productdataList=new ArrayList<>();
     Button button;
 
     @Override
@@ -45,60 +56,48 @@ public class Fragment_All_Product extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_all_product, container, false);
-
-        imageView = (ImageView) view.findViewById(R.id.image);
-        name = view.findViewById(R.id.name);
-        button = view.findViewById(R.id.addproduict);
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                CropImage.activity()
-                        .start(getContext(), Fragment_All_Product.this);
-
-            }
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View view) {
+//
+//        imageView = (ImageView) view.findViewById(R.id.image);
+//        name = view.findViewById(R.id.name);
+//        button = view.findViewById(R.id.addproduict);
 
 
-                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-                byte[] imageInByte = baos.toByteArray();
-
-
-                String imagedata = Base64.getEncoder().encodeToString(imageInByte);
-
-                String userid = SplashActivity.sp.getString("userid", "");
-
-
-                Retro_Object_Class.CallApi().addproducttt(userid, name.getText().toString(), "565", "free free", imagedata).enqueue(new Callback<ProductAdddd>() {
+                Retro_Object_Class.CallApi().showAllProducts().enqueue(new Callback<MyviewProducts>() {
                     @Override
-                    public void onResponse(Call<ProductAdddd> call, Response<ProductAdddd> response) {
-
-                        Log.d("aaa", "onResponse: " + response.body());
+                    public void onResponse(Call<MyviewProducts> call, Response<MyviewProducts> response) {
+                        productdataList.addAll(response.body().getProductdata());
+                       // progressBar.setVisibility(ProgressBar.GONE);
+//                        if (response.body().getConnection() == 1 && response.body().getResult() == 1) {
+//                            productdataList.addAll(response.body().getProductdata());
+//                           // progressBar.setVisibility(ProgressBar.GONE);
+//                           // lottieAnimationView.setVisibility(LottieAnimationView.VISIBLE);
+//                            Log.e("aaa", "onResponse: " + response.body().toString().length());
+//                            MyAdapter myAdapter = new MyAdapter(Fragment_All_Product.this.getActivity(), productdataList){
+//
+//
+//                            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//                            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//                            recyclerView.setLayoutManager(layoutManager);
+//                            MaterialDividerItemDecoration mDividerItemDecoration = new MaterialDividerItemDecoration(recyclerView.getContext(),
+//                                    layoutManager.getOrientation());
+//                            recyclerView.addItemDecoration(mDividerItemDecoration);
+//                            //myAdapter.notifyDataSetChanged();
+//                            recyclerView.setAdapter(myAdapter);
+//                        } else if (response.body().getResult() == 0) {
+//                            Toast.makeText(getContext(), "No more items available", Toast.LENGTH_LONG).show();
+//
+//                        } else {
+//                            Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+//                        }
 
 
                     }
 
                     @Override
-                    public void onFailure(Call<ProductAdddd> call, Throwable t) {
-
-                        Log.d("error", "onResponse: " + t.getLocalizedMessage());
-
+                    public void onFailure(Call<MyviewProducts> call, Throwable t) {
 
                     }
                 });
-
-
-            }
-        });
-
 
         return view;
     }

@@ -71,6 +71,7 @@
             android:autofillHints="fetch image from gallery"
             android:background="@color/purple_200"
             android:gravity="center"
+            android:scaleType="centerCrop"
             android:src="@drawable/baseline_image_24"
             android:text="All_Product Fragment"
             android:textSize="30dp"

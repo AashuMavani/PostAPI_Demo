@@ -16,11 +16,14 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.postapi_demo.Activities.Fragments.Fragment_Interface;
 import com.example.postapi_demo.Models.DeleteData;
 import com.example.postapi_demo.Models.Productdatum;
 import com.example.postapi_demo.R;
 import com.example.postapi_demo.Retro_Object_Class;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -59,11 +62,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
         holder.p_Price.setText("" + productdataList.get(position).getProPrice());
         holder.p_Des.setText("" + productdataList.get(position).getProDes());
         String img = "https://amiparaandroid.000webhostapp.com/Myapp/" + productdataList.get(holder.getAdapterPosition()).getProImage();
+
+        //Picasso.get().load(img).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.imageView);
+
+
 //        Glide.with(context).load(img).into(holder.imageView);
-        Picasso.get()
-                .load(img)
-                .placeholder(R.drawable.jmkjkfg)
+
+
+        Glide.with(context).load(img)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(holder.imageView);
+
+//        Picasso.get()
+//                .load(img)
+//                .placeholder(R.drawable.jmkjkfg)
+//                .into(holder.imageView);
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

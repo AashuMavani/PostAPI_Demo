@@ -21,11 +21,14 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.postapi_demo.Activities.SplashActivity;
 import com.example.postapi_demo.Models.DeleteData;
 import com.example.postapi_demo.Models.ProductAdddd;
 import com.example.postapi_demo.R;
 import com.example.postapi_demo.Retro_Object_Class;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -82,9 +85,17 @@ public class Fragment_Add_Product extends Fragment
             proDes.setText(""+des);
             String img = "https://amiparaandroid.000webhostapp.com/Myapp/"+imageName;
 //        Glide.with(context).load(img).into(holder.imageView);
-            Picasso.get()
-                    .load(img)
-                    .placeholder(R.drawable.baseline_change_circle_24)
+
+
+           // Picasso.get().load(img).memoryPolicy(MemoryPolicy.NO_CACHE).into(imageView);
+
+//            Picasso.get()
+//                    .load(img)
+//                    .placeholder(R.drawable.baseline_change_circle_24).ski
+//                    .into(imageView);
+            Glide.with(getContext()).load(img)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(imageView);
             System.out.println("ImgName="+img);
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -95,20 +106,26 @@ public class Fragment_Add_Product extends Fragment
                             .start(getContext(), Fragment_Add_Product.this);
                 }
             });
-            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
-            byte[] imageInByte = baos.toByteArray();
-            String imagedata = Base64.getEncoder().encodeToString(imageInByte);
+
+
             btnUpdt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Retro_Object_Class.CallApi().updateProduct(id,proName.getText().toString(),proPrice.getText().toString(),proDes.getText().toString(),imageName,imagedata).enqueue(new Callback<DeleteData>() {
+
+                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+                    byte[] imageInByte = baos.toByteArray();
+                    String imagedata = Base64.getEncoder().encodeToString(imageInByte);
+                    Retro_Object_Class.CallApi().updateProduct(id,proName.getText().toString(),proPrice.getText().toString(),proDes.getText().toString(),imagedata,imageName).enqueue(new Callback<DeleteData>() {
                         @Override
                         public void onResponse(Call<DeleteData> call, Response<DeleteData> response) {
                             if(response.body().getConnection()==1 && response.body().getResult()==1)
                             {
                                 Toast.makeText(getContext(), "Product updated..", Toast.LENGTH_SHORT).show();
+
+//                                startActivity(new Intent(Fragment_Add_Product.));
+
                             }
                             else if (response.body().getConnection()==1 && response.body().getResult()==0)
                             {
@@ -121,6 +138,9 @@ public class Fragment_Add_Product extends Fragment
                         }
                         @Override
                         public void onFailure(Call<DeleteData> call, Throwable t) {
+                            Log.d("===", "onFailure: ");
+                            Toast.makeText(getContext(),"Something went wrong"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
 
                         }
                     });

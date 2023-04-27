@@ -4,6 +4,7 @@ package com.example.postapi_demo.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Collection;
 import java.util.List;
 
 public class MyviewProducts {
@@ -34,7 +35,7 @@ public class MyviewProducts {
         this.result = result;
     }
 
-    public List<Productdatum> getProductdata() {
+    public Collection<? extends Productdatum> getProductdata() {
         return productdata;
     }
 

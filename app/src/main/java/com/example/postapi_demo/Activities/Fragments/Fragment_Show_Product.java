@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.postapi_demo.Activities.SplashActivity;
 import com.example.postapi_demo.Adapters.MyAdapter;
 import com.example.postapi_demo.Models.MyviewProducts;
@@ -29,7 +32,8 @@ import retrofit2.Response;
 
 public class Fragment_Show_Product extends Fragment {
     RecyclerView recyclerView;
-
+    ProgressBar progressBar;
+    LottieAnimationView lottieAnimationView;
     ArrayList<Productdatum> productdataList = new ArrayList<>();
 
     @Override
@@ -39,6 +43,8 @@ public class Fragment_Show_Product extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_show_product, container, false);
         recyclerView = view.findViewById(R.id.show_prod_recycler);
+        progressBar=view.findViewById(R.id.progressBar);
+        lottieAnimationView=view.findViewById(R.id.lottyAnimation);
         viewData();
         return view;
     }
@@ -51,6 +57,8 @@ public class Fragment_Show_Product extends Fragment {
 
                 if (response.body().getConnection() == 1 && response.body().getResult() == 1) {
                     productdataList.addAll(response.body().getProductdata());
+                    progressBar.setVisibility(ProgressBar.GONE);
+                    lottieAnimationView.setVisibility(LottieAnimationView.VISIBLE);
                     Log.e("aaa", "onResponse: " + response.body().toString().length());
                     MyAdapter myAdapter = new MyAdapter(Fragment_Show_Product.this.getActivity(), productdataList, new Fragment_Interface() {
                         @Override
@@ -81,6 +89,7 @@ public class Fragment_Show_Product extends Fragment {
                     recyclerView.setAdapter(myAdapter);
                 } else if (response.body().getResult() == 0) {
                     Toast.makeText(getContext(), "No more items available", Toast.LENGTH_LONG).show();
+
                 } else {
                     Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 }

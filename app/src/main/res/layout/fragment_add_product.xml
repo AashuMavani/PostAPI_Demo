@@ -40,7 +40,6 @@
         android:text="All_Product Fragment"
         android:textSize="30dp"
         android:autofillHints="fetch image from gallery"
-        android:background="@color/purple_200"
           android:tooltipText="add image"
           android:src="@drawable/baseline_image_24"/>
     </LinearLayout>
