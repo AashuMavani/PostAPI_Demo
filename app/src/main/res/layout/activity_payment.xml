@@ -14,36 +14,22 @@
             android:layout_height="match_parent"
             android:layout_margin="20dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#A3A1A1">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="110dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="#E2E2E2"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                <TextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="35dp"
-                        android:paddingBottom="0dp"
                         android:text="Order #RZP42"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
+                        android:textSize="20sp"
+                        android:gravity="center"/>
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_launcher_foreground" />
-
-            </RelativeLayout>
+                    android:src="@drawable/ic_launcher_foreground"
+                    android:id="@+id/payment_imgView"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,8 +45,9 @@
                     android:layout_gravity="center_horizontal"
                     android:paddingTop="0dp"
                     android:paddingBottom="5dp"
-                    android:text="Razorpay T-Shirt"
-                    android:textSize="20sp" />
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:id="@+id/payment_Name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -69,7 +56,9 @@
                     android:paddingTop="0dp"
                     android:paddingBottom="0dp"
                     android:text="INR 1.00"
-                    android:textSize="12sp" />
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:id="@+id/payment_Price"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -82,7 +71,7 @@
                     android:paddingBottom="0dp"
                     android:text="Transaction is for testing purpose and your deducted amount will get refunded in 3-5 business days "
                     android:textColor="@android:color/holo_red_dark"
-                    android:textSize="12sp"
+                    android:textSize="20sp"
                     android:textStyle="italic" />
 
                 <TextView
@@ -97,7 +86,7 @@
                     android:paddingBottom="0dp"
                     android:text="Privacy Policy"
                     android:textColor="@android:color/holo_red_dark"
-                    android:textSize="12sp"
+                    android:textSize="15sp"
                     android:textStyle="italic" />
 
                 <EditText
@@ -105,7 +94,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:hint="API Key" />
+                    android:hint="API Key"
+                    android:textColor="@color/black"/>
 
                 <EditText
                     android:id="@+id/et_custom_options"
@@ -113,7 +103,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="Custom Options"
-                    android:lines="10" />
+                    android:lines="5"
+                    android:textColor="@color/black"/>
 
                 <Button
                     android:id="@+id/btn_pay"
@@ -134,14 +125,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="10dp"
                 android:text="Secure Payments by Razorpay"
                 android:textColor="#a1ddee"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="italic" />
 
         </LinearLayout>

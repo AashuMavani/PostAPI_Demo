@@ -22,6 +22,7 @@ public interface Retro_Interface {
     @POST("login.php")
     Call<LoginData> userLogin(@Field("email") String email, @Field("password") String password);
 
+
     @FormUrlEncoded
     @POST("addProduct.php")
     Call<ProductAdddd> addproducttt(
@@ -48,6 +49,8 @@ public interface Retro_Interface {
                                    @Field("description")String description,
                                    @Field("imagedata")String imagedata,
                                    @Field("imagename")String imagename);
-    @GET("showAllProduct.php")
+
+    @GET("showAllproducts.php")
+
     Call<MyviewProducts> showAllProducts();
 }

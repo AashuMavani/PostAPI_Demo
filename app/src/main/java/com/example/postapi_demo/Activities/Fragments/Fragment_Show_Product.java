@@ -1,6 +1,7 @@
 package com.example.postapi_demo.Activities.Fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +32,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Fragment_Show_Product extends Fragment {
-    RecyclerView recyclerView;
-    ProgressBar progressBar;
+    public  RecyclerView recyclerView;
+    public  ProgressBar progressBar;
     LottieAnimationView lottieAnimationView;
     ArrayList<Productdatum> productdataList = new ArrayList<>();
 
@@ -58,7 +59,7 @@ public class Fragment_Show_Product extends Fragment {
                 if (response.body().getConnection() == 1 && response.body().getResult() == 1) {
                     productdataList.addAll(response.body().getProductdata());
                     progressBar.setVisibility(ProgressBar.GONE);
-                    lottieAnimationView.setVisibility(LottieAnimationView.VISIBLE);
+
                     Log.e("aaa", "onResponse: " + response.body().toString().length());
                     MyAdapter myAdapter = new MyAdapter(Fragment_Show_Product.this.getActivity(), productdataList, new Fragment_Interface() {
                         @Override
@@ -89,6 +90,19 @@ public class Fragment_Show_Product extends Fragment {
                     recyclerView.setAdapter(myAdapter);
                 } else if (response.body().getResult() == 0) {
                     Toast.makeText(getContext(), "No more items available", Toast.LENGTH_LONG).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(ProgressBar.GONE);
+                        }
+                    },2000);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            lottieAnimationView.setVisibility(LottieAnimationView.VISIBLE);
+                        }
+                    },2000);
+
 
                 } else {
                     Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();

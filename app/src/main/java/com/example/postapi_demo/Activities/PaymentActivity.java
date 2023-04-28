@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,9 @@ import com.razorpay.Checkout;
 import com.razorpay.ExternalWalletListener;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +28,8 @@ import org.json.JSONObject;
 public class PaymentActivity extends Activity implements PaymentResultWithDataListener, ExternalWalletListener {
     private static final String TAG = PaymentActivity.class.getSimpleName();
     private AlertDialog.Builder alertDialogBuilder;
-
+    TextView txt1,txt2;
+    ImageView imageView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,16 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
         // Payment button created by you in XML layout
         Button button = (Button) findViewById(R.id.btn_pay);
 
+        txt1=findViewById(R.id.payment_Name);
+        txt2=findViewById(R.id.payment_Price);
+        imageView=findViewById(R.id.payment_imgView);
+
+        txt1.setText(""+getIntent().getStringExtra("proName"));
+        txt2.setText("INR. "+getIntent().getStringExtra("proPrice"));
+
+        String img = "https://amiparaandroid.000webhostapp.com/Myapp/"+getIntent().getStringExtra("proImage");
+        Picasso.get().invalidate(img);
+        Picasso.get().load(img).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder(R.drawable.jmkjkfg).into(imageView);
 
 
         alertDialogBuilder = new AlertDialog.Builder(PaymentActivity.this);
