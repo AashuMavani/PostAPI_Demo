@@ -2,6 +2,7 @@ package com.example.postapi_demo.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,6 +92,7 @@ public class HomePage_Activity extends AppCompatActivity
                 return true;
             }
         });
+
     }
     private void addFragment(Fragment fragment)
     {

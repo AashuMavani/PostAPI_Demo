@@ -30,6 +30,7 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
     private AlertDialog.Builder alertDialogBuilder;
     TextView txt1,txt2;
     ImageView imageView;
+    String amount;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,9 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
         txt1.setText(""+getIntent().getStringExtra("proName"));
         txt2.setText("INR. "+getIntent().getStringExtra("proPrice"));
 
+        int amt= Integer.parseInt(getIntent().getStringExtra("proPrice"))*100;
+        amount= String.valueOf(amt);
+        System.out.println("amount="+amount);
         String img = "https://amiparaandroid.000webhostapp.com/Myapp/"+getIntent().getStringExtra("proImage");
         Picasso.get().invalidate(img);
         Picasso.get().load(img).networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder(R.drawable.jmkjkfg).into(imageView);
@@ -117,7 +121,7 @@ public class PaymentActivity extends Activity implements PaymentResultWithDataLi
                 //You can omit the image option to fetch the image from dashboard
                 options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
                 options.put("currency", "INR");
-                options.put("amount", "10000");
+                options.put("amount", amount);
 
                 JSONObject preFill = new JSONObject();
                 preFill.put("email", "test@razorpay.com");
