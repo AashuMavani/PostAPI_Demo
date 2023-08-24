@@ -98,7 +98,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
 //                .into(holder.imageView);
 //
 //        Glide.with(context).load(img)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .diskCacheStrategy(DiskCacheStrategy.N    ONE)
 //                .skipMemoryCache(true)
 //                .into(holder.imageView);
 
@@ -143,7 +143,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.User_Holder> {
                             });
                         }
                         if (item.getItemId() == R.id.updateProducr) {
-                            fragment_interface.onFragmentCall(productdataList.get(position).getId(), productdataList.get(position).getProName(), productdataList.get(position).getProPrice(), productdataList.get(position).getProDes(), productdataList.get(position).getProImage());
+                            fragment_interface.onFragmentCall(productdataList.get(position).getId(),
+                                    productdataList.get(position).getProName(),
+                                    productdataList.get(position).getProPrice(),
+                                    productdataList.get(position).getProDes(),
+                                    productdataList.get(position).getProImage());
                         }
                         return false;
                     }

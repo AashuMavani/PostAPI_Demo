@@ -113,10 +113,7 @@ public class Login_Activity extends AppCompatActivity {
                                 finish();
                             }
                         });
-//                        email.setError("Re-Enter valid e-mail id");
-//                        password.setError("");
-//                        email.setText("");
-//                        password.setText("");
+
                     }
                 }
                 else

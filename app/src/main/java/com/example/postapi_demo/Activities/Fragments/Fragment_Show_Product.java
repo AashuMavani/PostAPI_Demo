@@ -71,7 +71,7 @@ public class Fragment_Show_Product extends Fragment {
                             bundle.putString("name", proName);
                             bundle.putString("price", proPrice);
                             bundle.putString("des", proDes);
-                            bundle.putString("proImage", proImage);
+                            bundle.putString("pimg", proImage);
 
                             fragment.setArguments(bundle);
                             FragmentManager fm = getActivity().getSupportFragmentManager();

@@ -38,7 +38,7 @@ public class HomePage_Activity extends AppCompatActivity
     TextView drawer_txt_name,drawer_txt_email;
     ImageView drawer_img;
     ArrayList<String> listImages=new ArrayList<>();
-    ArrayList<String> arrayList=new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +53,14 @@ public class HomePage_Activity extends AppCompatActivity
         toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.Open_Drawer,R.string.Close_Drawer);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        //drawer_img.setImageResource();
+
         View view = navigationView.getHeaderView(0);
         drawer_txt_name=view.findViewById(R.id.drawer_txt_name);
         drawer_txt_email=view.findViewById(R.id.drawer_txt_email);
+
         drawer_txt_name.setText(""+SplashActivity.sp.getString("name",null));
         drawer_txt_email.setText(""+SplashActivity.sp.getString("email",null));
+
         String name=drawer_txt_name.getText().toString();
         String[] images = new String[0];
         try {
@@ -105,7 +107,6 @@ public class HomePage_Activity extends AppCompatActivity
     {
         FragmentManager fm=getSupportFragmentManager();
         FragmentTransaction transaction= fm.beginTransaction();
-        //transaction.add(R.id.frame, fragment);
         transaction.replace(R.id.frame,fragment);
         transaction.commit();
     }

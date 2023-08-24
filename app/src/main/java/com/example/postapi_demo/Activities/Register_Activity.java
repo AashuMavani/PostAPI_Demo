@@ -28,8 +28,10 @@ public class Register_Activity extends AppCompatActivity {
         setContentView(R.layout.registration_activity);
         name=findViewById(R.id.name);
         email = findViewById(R.id.regEmail);
-        password = findViewById(R.id.regPass);
+        password = findViewById(R.id.regPassword    );
         btnRegister = findViewById(R.id.btnRegister);
+
+
         str2=getIntent().getStringExtra("email");
         str3=getIntent().getStringExtra("password");
 

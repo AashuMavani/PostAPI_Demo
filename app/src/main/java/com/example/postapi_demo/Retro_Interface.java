@@ -15,12 +15,17 @@ import retrofit2.http.POST;
 public interface Retro_Interface {
     @FormUrlEncoded
     @POST("Register.php")
-    Call<RegdData> userRegister(@Field("name") String name, @Field("email") String email, @Field("password") String password);
+    Call<RegdData> userRegister(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("password") String password);
 
 
     @FormUrlEncoded
     @POST("login.php")
-    Call<LoginData> userLogin(@Field("email") String email, @Field("password") String password);
+    Call<LoginData> userLogin(
+            @Field("email") String email,
+            @Field("password") String password);
 
 
     @FormUrlEncoded

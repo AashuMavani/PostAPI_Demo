@@ -41,7 +41,7 @@ import retrofit2.Response;
 
 public class Fragment_Add_Product extends Fragment
 {
-    ImageView imageView;
+    ImageView proimage;
     EditText proName,proPrice,proDes;
     Button btnAdd,btnUpdt;
     String id,name,price,des,imageName;
@@ -55,7 +55,7 @@ public class Fragment_Add_Product extends Fragment
 
         View view = inflater.inflate(R.layout.fragment_add_product, container, false);
 
-        imageView = view.findViewById(R.id.proImage);
+        proimage = view.findViewById(R.id.proimage);
         proName = view.findViewById(R.id.proName);
         proPrice = view.findViewById(R.id.proPrice);
         proDes = view.findViewById(R.id.proDes);
@@ -84,11 +84,13 @@ public class Fragment_Add_Product extends Fragment
             proPrice.setText(""+price);
             proDes.setText(""+des);
             String img = "https://amiparaandroid.000webhostapp.com/Myapp/"+imageName;
-//        Glide.with(context).load(img).into(holder.imageView);
-
-
-           // Picasso.get().load(img).memoryPolicy(MemoryPolicy.NO_CACHE).into(imageView);
-
+//        Glide
+//                .with(context).load(img)
+//                .into(holder.imageView);
+//
+//
+//            Picasso.get().load(img).memoryPolicy(MemoryPolicy.NO_CACHE).into(imageView);
+//
 //            Picasso.get()
 //                    .load(img)
 //                    .placeholder(R.drawable.baseline_change_circle_24).ski
@@ -96,9 +98,9 @@ public class Fragment_Add_Product extends Fragment
             Glide.with(getContext()).load(img)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
-                    .into(imageView);
+                    .into(proimage);
             System.out.println("ImgName="+img);
-            imageView.setOnClickListener(new View.OnClickListener() {
+            proimage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -112,7 +114,7 @@ public class Fragment_Add_Product extends Fragment
                 @Override
                 public void onClick(View view) {
 
-                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                    Bitmap bitmap = ((BitmapDrawable) proimage.getDrawable()).getBitmap();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
                     byte[] imageInByte = baos.toByteArray();
@@ -148,7 +150,7 @@ public class Fragment_Add_Product extends Fragment
                 }
             });
         }
-        imageView.setOnClickListener(new View.OnClickListener() {
+        proimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -161,16 +163,14 @@ public class Fragment_Add_Product extends Fragment
             @Override
             public void onClick(View view) {
                 try {
-                    Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                    Bitmap bitmap = ((BitmapDrawable) proimage.getDrawable()).getBitmap();
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
                     byte[] imageInByte = baos.toByteArray();
                     String imagedata = Base64.getEncoder().encodeToString(imageInByte);
                     String userid = SplashActivity.sp.getString("userid", "");
                     Retro_Object_Class.CallApi()
-                        .addproducttt(userid, proName.getText().toString(),
-                                proPrice.getText().toString(),
-                                proDes.getText().toString(), imagedata)
+                        .addproducttt(userid, proName.getText().toString(), proPrice.getText().toString(), proDes.getText().toString(), imagedata)
                         .enqueue(new Callback<ProductAdddd>()
                         {
                             @Override
@@ -212,7 +212,7 @@ public class Fragment_Add_Product extends Fragment
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 Log.d("aaa", "onActivityResult: "+resultUri);
-                imageView.setImageURI(resultUri);
+                proimage.setImageURI(resultUri);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
